@@ -12,12 +12,12 @@ var screenWidth = blipp.getScreenWidth() * 1.003;
 
 franklinScene.onCreate = function(){
   console.log("scene created");
-  var sphere = franklinScene.addMesh('cube1.md2');
-  sphere.addScale(200);
   var defaultLight = scene.addLight("light");
   var defaultMaterial = scene.addMaterial("material");
+  var sphere = franklinScene.addMesh('cube1.md2');
+  sphere.addScale(200);
   sphere.setMaterial(defaultMaterial);
-  franklinScene.setLight(defaultLight);
+  sphere.setLight(defaultLight);
 }
 
 franklinScene.onShow = function(){

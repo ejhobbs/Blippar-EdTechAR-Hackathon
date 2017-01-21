@@ -22,9 +22,9 @@ scene.onShow = function(){
 }
 
 scene.onUpdate = function(){
-  var scale = blipp.getCameraPosition()[2];
-  console.log(scale)
-  kite.setScale(scale/10);
+  var scale = blipp.getCameraPosition()[2]/1000;
+  //console.log(scale)
+  kite.setScale(screenWidth/3*(1/(scale)));
   //TODO move cloud
   //TODO check collision
 }

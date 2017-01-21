@@ -8,7 +8,8 @@ var screenHeight = blipp.getScreenHeight() * 1.003;
 var screenWidth = blipp.getScreenWidth() * 1.003;
 
 scene.onCreate = function(){
-
+  var screen = scene.getScreen();
+  screen.addSprite('kite.png');
 }
 
 scene.onShow = function(){

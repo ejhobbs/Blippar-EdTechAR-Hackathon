@@ -3,6 +3,7 @@ var blipp = require('blippar').blipp;
 var scene = blipp.addScene();
 var screen = scene.getScreen();
 var kite = screen.addSprite();
+var cloud = scene.addMesh("cube1.md2");
 
 var markerWidth = blipp.getMarker().getWidth();
 var markerHeight = blipp.getMarker().getHeight();
@@ -15,6 +16,9 @@ scene.onCreate = function(){
   kite.setType('solid');
   kite.setTexture('kite.png');
   kite.setTranslation([screenWidth/4,screenHeight/4, 0]);
+  cloud.setTranslation(24,24,300);
+  cloud.setScale(50);
+  cloud.setColor(50,50,50);
 }
 
 scene.onShow = function(){

@@ -1,0 +1,40 @@
+{
+    "fileInfo": {
+        "jsAPIVersion": "1.3.3"
+    },
+    "title": "Projectile Experiment",
+    "shortTitle": "Projectile",
+    "children": [
+        {
+            "className": "Scene",
+            "name": "default",
+            "children": [
+                {
+                    "className": "Light",
+                    "name": "light",
+                    "type": "directional",
+                    "translation": [-100, 100, 1000],
+                    "direction": [0, 0, -1]
+                },
+                {
+                    "className": "Material",
+                    "name": "dull",
+                    "type": "shiny",
+                    "shininess": 10,
+                    "specularPower": 0.15
+                },
+                {
+                    "className": "Mesh",
+                    "name": "cube1",
+                    "mesh": "cube1.md2",
+                    "translation": [],
+                    "scale": [50,50,50],
+                    "alpha": 1,
+                    "light": "light",
+                    "material": "dull",
+                    "clickable": false
+                }
+            ]
+        }
+    ]
+}

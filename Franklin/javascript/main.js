@@ -46,13 +46,14 @@ scene.onShow = function(){
     //console.log(cameraZ);
     kite.setTranslation(cameraX,cameraY,cameraZ-800);
   }
+
   var checkCollision = scene.animate().duration(33).loop(true);
   checkCollision.onLoop = function(){
     var kitePos = kite.getTranslation();
     var cloudPos = cloud.getTranslation();
     var result = [null,null,null];
     result.forEach(function(item,index,array){
-      if(kitePos[index] < cloudPos[index]+10 && kitePos[index] > cloudPos[index]-10){
+      if(kitePos[index] < cloudPos[index]+20 && kitePos[index] > cloudPos[index]-20){
         array[index] = true;
       }
     });

@@ -19,12 +19,12 @@ scene.onCreate = function(){
   kite.setTexture('kite.png');
   kite.setTranslation(0,0, 400);
   kite.setScale(200)
-  // cloud.setTranslation(24,24,300);
-  // cloud.setScale(50);
-  // cloud.setColor(0.3,0.3,0.3);
-  // console.log("hello");
-  // cloud.setClickable(true);
-  // cloud.onTouchEnd = moveCloud;
+  cloud.setTranslation(24,24,300);
+  cloud.setScale(50);
+  cloud.setColor(0.3,0.3,0.3);
+  console.log("hello");
+  cloud.setClickable(true);
+  cloud.onTouchEnd = moveCloud;
 }
 
 scene.onShow = function(){
@@ -37,7 +37,7 @@ scene.onShow = function(){
     var cameraY = curCameraPos[1];
     var cameraX = curCameraPos[0];
     //console.log(cameraZ);
-    kite.setTranslation(0,0,cameraZ-700);
+    kite.setTranslation(cameraX,cameraY,cameraZ-800);
   }
 }
 

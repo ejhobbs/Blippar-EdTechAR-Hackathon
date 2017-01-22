@@ -22,12 +22,12 @@ scene.onShow = function() {
 
   earth.setScale(200);
   earth.setTranslation(0,0,500);
-  earth.setColor("#00FF00");
+  earth.setColor("#4b7a19");
 
   sattelite.setScale(40);
   sattelite.setTranslation(0,500,500);
   sattelite.addRotation(-90,0,0);
-  sattelite.setColor("#FF0000");
+  sattelite.setColor("#529aa5");
 
   orbit.setHeight(blipp.getScreenWidth()/2.5);
   orbit.setWidth(blipp.getScreenWidth()/2.5);

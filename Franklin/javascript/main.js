@@ -4,8 +4,8 @@ Number.prototype.map = function (in_min, in_max, out_min, out_max) {
   return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 var scene = blipp.addScene();
-var screen = scene.getScreen();
-var kite = screen.addSprite();
+//var screen = scene.getScreen();
+var kite = scene.addSprite();
 var cloud = scene.addMesh("cube1.md2");
 
 var markerWidth = blipp.getMarker().getWidth();
@@ -15,24 +15,34 @@ var screenHeight = blipp.getScreenHeight() * 1.003;
 var screenWidth = blipp.getScreenWidth() * 1.003;
 
 scene.onCreate = function(){
-  kite.setType('solid');
+  //kite.setType('solid');
   kite.setTexture('kite.png');
-  kite.setTranslation([screenWidth/4,screenHeight/4, 0]);
-  cloud.setTranslation(24,24,300);
-  cloud.setScale(50);
-  cloud.setColor(0.3,0.3,0.3);
-  console.log("hello");
-  cloud.setClickable(true);
-  cloud.onTouchEnd = moveCloud;
+  kite.setTranslation(0,0, 400);
+  kite.setScale(200)
+  // cloud.setTranslation(24,24,300);
+  // cloud.setScale(50);
+  // cloud.setColor(0.3,0.3,0.3);
+  // console.log("hello");
+  // cloud.setClickable(true);
+  // cloud.onTouchEnd = moveCloud;
 }
 
 scene.onShow = function(){
   console.log("Scene displayed");
+  var myTimer = scene.animate().duration(33).loop(true);
+  myTimer.onLoop = function(){
+    curCameraPos = blipp.getCameraPosition();
+    console.log("updating camera")
+    var cameraZ = curCameraPos[2];
+    var cameraY = curCameraPos[1];
+    var cameraX = curCameraPos[0];
+    //console.log(cameraZ);
+    kite.setTranslation(0,0,cameraZ-700);
+  }
 }
 
 scene.onUpdate = function(){
-  var scale = blipp.getCameraPosition()[2]/1000;
-  kite.setScale(screenWidth/2.5*(1/(scale)));
+  //console.log("Cloud x: "+cloud.getTranslation()[0]+ "camera: "+cameraX);
   //TODO check collision ()
   //TODO change materials (change texture file)
 }
@@ -56,7 +66,7 @@ function moveCloud(){
 }
 
 function getRandomArbitrary(min, max) {
-  return Math.random()*2 * (max - min) + min;
+  return Math.random() * (max - min) + min;
 }
 
 function mod(n,m) {

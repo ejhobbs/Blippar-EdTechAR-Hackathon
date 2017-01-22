@@ -4,9 +4,10 @@ Number.prototype.map = function (in_min, in_max, out_min, out_max) {
   return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 var scene = blipp.addScene();
-//var screen = scene.getScreen();
+var screen = scene.getScreen();
 var kite = scene.addSprite();
 var cloud = scene.addMesh("cube1.md2");
+var bulb = screen.addSprite();
 
 var markerWidth = blipp.getMarker().getWidth();
 var markerHeight = blipp.getMarker().getHeight();
@@ -16,16 +17,21 @@ var screenWidth = blipp.getScreenWidth() * 1.003;
 
 scene.onCreate = function(){
   blipp.setFPS(60);
-  //kite.setType('solid');
+  blipp.hideUiComponents('navBar')
+  //
   kite.setTexture('kite.png');
   kite.setTranslation(0,0, 400);
   kite.setScale(200);
+  //
   cloud.setTranslation(24,24,300);
   cloud.setScale(50);
   cloud.setColor(0.3,0.3,0.3);
-  //console.log("hello");
   cloud.setClickable(true);
   cloud.onTouchEnd = moveCloud;
+  //
+  bulb.setTexture('lightbulb_off.png');
+  bulb.setScale(100);
+  bulb.setTranslation((screenWidth/2)-60,(-screenHeight/2)+60,0);
 }
 
 scene.onShow = function(){
@@ -51,13 +57,14 @@ scene.onShow = function(){
       }
     });
     if (result[0] == result[1] == result[2]){
-      console.log("in contact");
+      changeLight("on");
+    } else {
+      changeLight("off");
     }
   }
 }
 
 scene.onUpdate = function(){
-  //console.log("Cloud x: "+cloud.getTranslation()[0]+ "camera: "+cameraX);
   //TODO check collision ()
   //TODO change materials (change texture file)
 }
@@ -67,15 +74,6 @@ function moveCloud(){
   var x = getRandomArbitrary(markerWidth-((3*markerWidth)/2),markerWidth/2);
   var y = getRandomArbitrary(markerHeight-((3*markerHeight)/2),markerWidth/2);
   var z = getRandomArbitrary(250,350);
-  // var curTranslation = cloud.getTranslation();
-  // //console.log(curTranslation);
-  // var curX = curTranslation[0];
-  // var curY = curTranslation[1];
-  // var curZ = curTranslation[2];
-  // //console.log("Moving cloud x: "+x+"\n y: "+y+"\n z: "+z);
-  // var newX = translateOrigin(mod(x+curX,markerHeight+1),markerWidth);
-  // var newY = translateOrigin(mod(y+curY,markerWidth+1),markerHeight);
-  //console.log("x: "+x+" y: "+y+" z: "+z);
   cloud.setTranslation(x,y,z);
 
 }
@@ -84,12 +82,6 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-function mod(n,m) {
-        return ((n % m) + m) % m;
-}
-
-function translateOrigin(ord,direction){
-    var min = direction-((3*direction)/2);
-    var max = direction/2;
-    return ord.map(0,direction,min,max);
+function changeLight(position){
+  bulb.setTexture("lightbulb_"+position+".png");
 }

@@ -15,29 +15,44 @@ var screenHeight = blipp.getScreenHeight() * 1.003;
 var screenWidth = blipp.getScreenWidth() * 1.003;
 
 scene.onCreate = function(){
+  blipp.setFPS(60);
   //kite.setType('solid');
   kite.setTexture('kite.png');
   kite.setTranslation(0,0, 400);
-  kite.setScale(200)
+  kite.setScale(200);
   cloud.setTranslation(24,24,300);
   cloud.setScale(50);
   cloud.setColor(0.3,0.3,0.3);
-  console.log("hello");
+  //console.log("hello");
   cloud.setClickable(true);
   cloud.onTouchEnd = moveCloud;
 }
 
 scene.onShow = function(){
-  console.log("Scene displayed");
-  var myTimer = scene.animate().duration(33).loop(true);
-  myTimer.onLoop = function(){
+  //console.log("Scene displayed");
+  var moveKite = scene.animate().duration(33).loop(true);
+  moveKite.onLoop = function(){
     curCameraPos = blipp.getCameraPosition();
-    console.log("updating camera")
+    //console.log("updating camera")
     var cameraZ = curCameraPos[2];
     var cameraY = curCameraPos[1];
     var cameraX = curCameraPos[0];
     //console.log(cameraZ);
     kite.setTranslation(cameraX,cameraY,cameraZ-800);
+  }
+  var checkCollision = scene.animate().duration(33).loop(true);
+  checkCollision.onLoop = function(){
+    var kitePos = kite.getTranslation();
+    var cloudPos = cloud.getTranslation();
+    var result = [null,null,null];
+    result.forEach(function(item,index,array){
+      if(kitePos[index] < cloudPos[index]+10 && kitePos[index] > cloudPos[index]-10){
+        array[index] = true;
+      }
+    });
+    if (result[0] == result[1] == result[2]){
+      console.log("in contact");
+    }
   }
 }
 
@@ -60,7 +75,7 @@ function moveCloud(){
   // //console.log("Moving cloud x: "+x+"\n y: "+y+"\n z: "+z);
   // var newX = translateOrigin(mod(x+curX,markerHeight+1),markerWidth);
   // var newY = translateOrigin(mod(y+curY,markerWidth+1),markerHeight);
-  console.log("x: "+x+" y: "+y+" z: "+z);
+  //console.log("x: "+x+" y: "+y+" z: "+z);
   cloud.setTranslation(x,y,z);
 
 }

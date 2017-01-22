@@ -7,21 +7,40 @@ var node = scene.addMesh();
 var cannon = node.addMesh("Cannon.md2");
 var earth = scene.addMesh("Earth.md2");
 
+var screen = scene.getScreen();
+var orbit = screen.addSprite();
+var overpower = screen.addSprite();
+var crash = screen.addSprite();
+
 scene.onCreate = function() {
 
-  earth.setScale(300);
+  earth.setScale(200);
   earth.setTranslation(0,0,500);
   earth.setColor("#00FF00");
 
-  cannon.setScale(60);
-  cannon.setTranslation(0,600,500);
+  cannon.setScale(40);
+  cannon.setTranslation(0,500,500);
   cannon.addRotation(-90,0,0);
   cannon.setColor("#FF0000");
 
-  earth.setClickable(true);
+  orbit.setColor("#00FF00");
+  orbit.setHeight(blipp.getScreenHeight()/2.5);
+  orbit.setWidth(blipp.getScreenWidth()/2);
+  orbit.setTranslation([0, -(blipp.getScreenHeight()/2), 0]);
+
+  overpower.setColor("#FF0000");
+  overpower.setHeight(blipp.getScreenHeight()/2.5);
+  overpower.setWidth(blipp.getScreenWidth()/2);
+  overpower.setTranslation([(blipp.getScreenWidth()/2), -(blipp.getScreenHeight()/2), 0]);
+
+  crash.setColor("#FF0000");
+  crash.setHeight(blipp.getScreenHeight()/2.5);
+  crash.setWidth(blipp.getScreenWidth()/2);
+  crash.setTranslation([-(blipp.getScreenWidth()/2), -(blipp.getScreenHeight()/2), 0]);
+
 
 }
-earth.on('touchEnd', function() {
+orbit.on('touchEnd', function() {
   fire(100);
 });
 

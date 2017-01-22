@@ -52,7 +52,7 @@ scene.onShow = function(){
     kite.setTranslation(cameraX,cameraY,cameraZ-800);
   }
 
-  var cloudMover = scene.animate().duration(4000).loop(true);
+  var cloudMover = scene.animate().duration(10000).loop(true);
   cloudMover.onLoop = function(){
     moveCloud();
   }

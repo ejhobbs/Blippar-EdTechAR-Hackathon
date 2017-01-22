@@ -10,6 +10,8 @@ var orbit = screen.addSprite();
 var overpower = screen.addSprite();
 var crash = screen.addSprite();
 
+var rotation = null;
+
 scene.onCreate = function() {
 
   earth.setScale(200);
@@ -36,14 +38,15 @@ scene.onCreate = function() {
   crash.setWidth(blipp.getScreenWidth()/2);
   crash.setTranslation([-(blipp.getScreenWidth()/2), -(blipp.getScreenHeight()/2), 0]);
 
-  node.animate().rotation([0,0,360]).duration(3000).loop(true);
+  rotation = node.animate().rotation([0,0,360]).duration(3000).loop(true);
 }
+
 
 orbit.on('touchEnd', function() {
   blipp.goToScene(scene);
   sattelite.setHidden(false);
   sattelite.animate().translation([0,500,500]).duration(1000)
-  node.animate().rotation([0,0,360]).duration(3000).loop(true);
+  rotation = node.animate().rotation([0,0,360]).duration(3000).loop(true);
 });
 
 crash.on('touchEnd', function() {
@@ -55,7 +58,8 @@ crash.on('touchEnd', function() {
 
 overpower.on('touchEnd', function() {
   sattelite.setHidden(false);
-  sattelite.animate().translation([blipp.getScreenWidth(), blipp.getScreenHeight(), 0]).duration(2000).on('end', function() {
+  rotation.stop();
+  sattelite.animate().translation([-blipp.getScreenHeight(), 0, 0]).duration(2000).on('end', function() {
     sattelite.setHidden(true);
   });
 });

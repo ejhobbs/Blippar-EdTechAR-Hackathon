@@ -7,7 +7,9 @@ var scene = blipp.addScene();
 var screen = scene.getScreen();
 var kite = scene.addSprite();
 var kiteTextures = ['kite_metal.png','kite_wood.png'];
+var cloudColors = [[0.3,0.3,0.3],[0.1,0.1,0.1]];
 var curKiteTexture = 0;
+var curCloudColor = 0;
 var cloud = scene.addMesh("cube1.md2");
 var bulb = screen.addSprite();
 
@@ -60,11 +62,11 @@ scene.onShow = function(){
     var cloudPos = cloud.getTranslation();
     var result = [null,null,null];
     result.forEach(function(item,index,array){
-      if(kitePos[index] < cloudPos[index]+20 && kitePos[index] > cloudPos[index]-20){
+      if(kitePos[index] < cloudPos[index]+30 && kitePos[index] > cloudPos[index]-30){
         array[index] = true;
       }
     });
-    if (result[0] == result[1] == result[2] && curKiteTexture%2 == 0 ){
+    if (result[0] == result[1] == result[2] && curKiteTexture%2 == 0 && curCloudColor%2 == 0 ){
       changeLight("on");
     } else {
       changeLight("off");
@@ -96,6 +98,12 @@ function changeLight(position){
 
 function swapMaterial(){
   curKiteTexture += 1;
-  kite.setTexture(kiteTextures[curKiteTexture%(1+1)]);
+  kite.setTexture(kiteTextures[curKiteTexture%2]);
   console.log(curKiteTexture);
+}
+
+function toggleCloud(){
+  curCloudColor += 1;
+  newColor = cloudColors[curCloudColor%2]
+  cloud.setColor(newColor[0],newColor[1],newColor[2]);
 }

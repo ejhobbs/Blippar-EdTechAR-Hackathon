@@ -12,6 +12,7 @@ var curKiteTexture = 0;
 var curCloudColor = 0;
 var cloud = scene.addMesh("cube1.md2");
 var bulb = screen.addSprite();
+var msg = screen.addSprite('kite_experiment.png')
 
 var markerWidth = blipp.getMarker().getWidth();
 var markerHeight = blipp.getMarker().getHeight();
@@ -36,19 +37,21 @@ scene.onCreate = function(){
   //
   bulb.setTexture('lightbulb_off.png');
   bulb.setScale(100);
-  bulb.setTranslation((screenWidth/2)-60,(-screenHeight/2)+60,0);
+  bulb.setTranslation((screenWidth/2)-60,(-screenHeight/2)+60,-3);
+  //
+  msg.setScale(800);
+  msg.setClickable(true);
+  msg.setHidden(true);
+  msg.onTouchEnd = resetBlipp;
 }
 
 scene.onShow = function(){
-  //console.log("Scene displayed");
   var moveKite = scene.animate().duration(33).loop(true);
   moveKite.onLoop = function(){
     curCameraPos = blipp.getCameraPosition();
-    //console.log("updating camera")
     var cameraZ = curCameraPos[2];
     var cameraY = curCameraPos[1];
     var cameraX = curCameraPos[0];
-    //console.log(cameraZ);
     kite.setTranslation(cameraX,cameraY,cameraZ-800);
   }
 
@@ -68,6 +71,7 @@ scene.onShow = function(){
     });
     if (result[0] == result[1] == result[2] && curKiteTexture%2 == 0 && curCloudColor%2 == 0 ){
       changeLight("on");
+      msg.setHidden(false);
     } else {
       changeLight("off");
     }
@@ -80,11 +84,11 @@ scene.onUpdate = function(){
 }
 
 function moveCloud(){
-  console.log("moving");
-  var x = getRandomArbitrary(markerWidth-((3*markerWidth)/2),markerWidth/2);
-  var y = getRandomArbitrary(markerHeight-((3*markerHeight)/2),markerWidth/2);
-  var z = getRandomArbitrary(250,350);
-  cloud.setTranslation(x,y,z);
+  // console.log("moving");
+  // var x = getRandomArbitrary(markerWidth-((3*markerWidth)/2),markerWidth/2);
+  // var y = getRandomArbitrary(markerHeight-((3*markerHeight)/2),markerWidth/2);
+  // var z = getRandomArbitrary(250,350);
+  // cloud.setTranslation(x,y,z);
 
 }
 
@@ -106,4 +110,8 @@ function toggleCloud(){
   curCloudColor += 1;
   newColor = cloudColors[curCloudColor%2]
   cloud.setColor(newColor[0],newColor[1],newColor[2]);
+}
+
+function resetBlipp(){
+  blipp.goToScene(scene);
 }

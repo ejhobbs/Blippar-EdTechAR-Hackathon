@@ -10,9 +10,11 @@ var orbit = screen.addSprite();
 var overpower = screen.addSprite();
 var crash = screen.addSprite();
 
+var textback = screen.addSprite();
+
 var rotation = null;
 
-scene.onCreate = function() {
+scene.onShow = function() {
 
   earth.setScale(200);
   earth.setTranslation(0,0,500);
@@ -38,28 +40,37 @@ scene.onCreate = function() {
   crash.setWidth(blipp.getScreenWidth()/2);
   crash.setTranslation([-(blipp.getScreenWidth()/2), -(blipp.getScreenHeight()/2), 0]);
 
+  textback.setColor("#000000");
+  textback.setHeight(blipp.getScreenHeight());
+  textback.setWidth(blipp.getScreenWidth());
+  textback.setHidden(true);
+
   rotation = node.animate().rotation([0,0,360]).duration(3000).loop(true);
+
+
 }
-
-
 orbit.on('touchEnd', function() {
-  blipp.goToScene(scene);
-  sattelite.setHidden(false);
-  sattelite.animate().translation([0,500,500]).duration(1000)
-  rotation = node.animate().rotation([0,0,360]).duration(3000).loop(true);
+  textback.setHidden(false);
 });
 
+textback.on('touchEnd', function () {
+  textback.setHidden(true);
+  startOrbit();
+});
+
+function startOrbit() {
+  blipp.goToScene(scene);
+}
+
 crash.on('touchEnd', function() {
-  sattelite.setHidden(false);
-  sattelite.animate().translation([0,0,0]).duration(4000).on('end', function() {
-    sattelite.setHidden(true);
+  sattelite.animate().translation([0,0,0]).duration(2000).on('end', function() {
+    textback.setHidden(false);
   });
 });
 
 overpower.on('touchEnd', function() {
-  sattelite.setHidden(false);
   rotation.stop();
   sattelite.animate().translation([-blipp.getScreenHeight(), 0, 0]).duration(2000).on('end', function() {
-    sattelite.setHidden(true);
+    textback.setHidden(false);
   });
 });

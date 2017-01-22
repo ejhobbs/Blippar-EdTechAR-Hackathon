@@ -1,7 +1,6 @@
 
 var blipp = require('blippar').blipp;
 
-
 var scene = blipp.addScene("default");
 var node = scene.addMesh();
 var sattelite = node.addMesh("Cannon.md2");
@@ -42,7 +41,6 @@ scene.onCreate = function() {
 
 }
 
-
 orbit.on('touchEnd', function() {
     blipp.goToScene(scene);
     sattelite.animate().translation([0,500,500]).duration(1000);
@@ -50,7 +48,7 @@ orbit.on('touchEnd', function() {
 });
 
 crash.on('touchEnd', function() {
-    sattelite.animate().translation([0,0,0]).duration(3000);
+    sattelite.animate().translation([0,0,0]).duration(4000);
 });
 
 overpower.on('touchEnd', function() {

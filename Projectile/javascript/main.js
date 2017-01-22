@@ -1,4 +1,3 @@
-
 var blipp = require('blippar').blipp;
 
 var scene = blipp.addScene("default");
@@ -38,19 +37,25 @@ scene.onCreate = function() {
   crash.setTranslation([-(blipp.getScreenWidth()/2), -(blipp.getScreenHeight()/2), 0]);
 
   node.animate().rotation([0,0,360]).duration(3000).loop(true);
-
 }
 
 orbit.on('touchEnd', function() {
-    blipp.goToScene(scene);
-    sattelite.animate().translation([0,500,500]).duration(1000);
-    node.animate().rotation([0,0,360]).duration(3000).loop(true);
+  blipp.goToScene(scene);
+  sattelite.setHidden(false);
+  sattelite.animate().translation([0,500,500]).duration(1000)
+  node.animate().rotation([0,0,360]).duration(3000).loop(true);
 });
 
 crash.on('touchEnd', function() {
-    sattelite.animate().translation([0,0,0]).duration(4000);
+  sattelite.setHidden(false);
+  sattelite.animate().translation([0,0,0]).duration(4000).on('end', function() {
+    sattelite.setHidden(true);
+  });
 });
 
 overpower.on('touchEnd', function() {
-    sattelite.animate().translation([blipp.getScreenWidth(), blipp.getScreenHeight(), 0]).duration(2000);
+  sattelite.setHidden(false);
+  sattelite.animate().translation([blipp.getScreenWidth(), blipp.getScreenHeight(), 0]).duration(2000).on('end', function() {
+    sattelite.setHidden(true);
+  });
 });

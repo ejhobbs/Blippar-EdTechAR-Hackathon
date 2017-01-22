@@ -30,7 +30,7 @@ scene.onCreate = function(){
   cloud.setScale(50);
   cloud.setColor(0.3,0.3,0.3);
   cloud.setClickable(true);
-  cloud.onTouchEnd = moveCloud;
+  cloud.onTouchEnd = toggleCloud;
   //
   bulb.setTexture('lightbulb_off.png');
   bulb.setScale(100);
@@ -50,11 +50,11 @@ scene.onShow = function(){
     kite.setTranslation(cameraX,cameraY,cameraZ-800);
   }
 
-  var cloudMover = scene.animate().duration(33).loop(true);
+  var cloudMover = scene.animate().duration(4000).loop(true);
   cloudMover.onLoop = function(){
     moveCloud();
   }
-  var checkCollision = scene.animate().duration(2000).loop(true);
+  var checkCollision = scene.animate().duration(33).loop(true);
   checkCollision.onLoop = function(){
     var kitePos = kite.getTranslation();
     var cloudPos = cloud.getTranslation();
